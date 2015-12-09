@@ -1,0 +1,129 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[usenames]{color}
+\usepackage[parfill]{parskip}
+\usepackage[danish,english]{babel}
+\usepackage[a4paper, hmargin={2.8cm, 2.8cm}, vmargin={2.5cm, 2.5cm}]{geometry}
+\usepackage[babel, lille, farve, nat, en]{/Users/ku-forside/ku-forside}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathdots}
+\usepackage{graphicx}
+\usepackage{physics}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+\usepackage{gensymb}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{blindtext}
+\usepackage{bm,upgreek}
+\pagestyle{fancy}
+\fancypagestyle{firststyle}
+{
+   \fancyhf{}
+   \fancyhead{}
+   \renewcommand{\headrulewidth}{0pt}
+   \fancyfoot[R]{Page~\thepage\ of~\pageref{LastPage}}
+   \fancyfoot[L]{\today}
+}
+\lhead{Thorsten Bæk}
+\chead{Linear Algebra weekly assignment 3}
+\rhead{kmg386}
+\rfoot{Page~\thepage\ of~\pageref{LastPage}}
+\cfoot{ }
+\lfoot{\today}
+
+\titel{Linear Algebra weekly assignment 3}
+\undertitel{Linear Algebra}
+\opgave{Assignment}
+\forfatter{\small Thorsten Bæk}
+\dato{\today}
+\vejleder{}
+\begin{document}
+
+\maketitle
+\thispagestyle{firststyle}
+%\abstract{}
+
+\section*{3.1}
+
+\subsection{(a)}
+
+The matrix \(\underline{\underline{{A_n}}}\) has the following form
+
+\begin{equation}
+  \underline{\underline{{A_n}}}=
+  \begin{pmatrix}
+   0      & \cdots  & \cdots      & 0 & 1_{1n} \\
+  \vdots  &        &         & \iddots &  0 \\
+  \vdots  &         & 1_{ji}  &          & \vdots  \\
+   0      & \iddots &         &   &  \vdots \\
+   1_{m1} & 0  & \cdots  & \cdots &  0
+\end{pmatrix}
+\end{equation}
+
+\subsection{(b)}
+
+Input in Maple
+
+\begin{verbatim}
+  for i to 10 do Determinant(FlipDimension(IdentityMatrix(i), 1)) end do
+\end{verbatim}
+
+Output:
+
+\begin{equation}
+1, -1, -1, 1, 1, -1, -1, 1, 1, -1
+\end{equation}
+
+The determinant is always 1 or -1, depending on \(n\).
+It seems to change sign each time \(n\) passes an even number.
+
+\subsection{(c)}
+
+The pattern in the determinants sign can be explained in a few ways.
+One is when using row operations - when ever you switch rows, you change the sign of the determinant.
+This creates a pattern, as we see. If you divice \(n\) with 2 and get an even number, you get an even determinant, ignoring the added \(\frac{1}{2}\) for every second number in the sequence, since it represents the row in "the middle" on which you don't make operations.
+If you find the determinant by expansion, you see that for each \(n\) you multiply the determinant of \(n-1\) with 1 minding whether or not the 1 in the added row is in a position that makes it negative or positive.
+This gives you a pattern of the determinant changing for every second step in the \(n\) sequence.
+\newline
+I would prefer using row operations to explain the sequence, since it is easy to see how times you need to switch rows to get the unit matrix.
+Combining this with the knowledge of the rule for switching sign of the determinant for each row switch, it easy to see the connection.
+
+\subsection{(d)}
+
+Each time you switch rows, you invert the orientation of the function.
+So, \(f_n\) does not keep the orientation for each \(n\) but switch orientation with the same sequence as the determinant switches sign.
+
+\section{3.2(iii)}
+
+\subsection{(a)}
+
+\( \bm{\Psi}_3 \):
+
+\begin{equation}
+  \begin{split}
+    \bm{\Psi}_3(e_1,e_2,e_3) = \frac{1}{\sqrt{6}} ( \psi_1(e_1) \psi_2(e_2) \psi_3(e_3) + \psi_2(e_1) \psi_3(e_2) \psi_1(e_3) + \psi_3(e_3) \psi_1(e_2) \psi_2(e_3) \\
+    - \psi_1(e_3) \psi_2(e_2) \psi_3(e_1) - \psi_2(e_3) \psi_3(e_2) \psi_1(e_1) - \psi_3(e_3) \psi_1(e_2) \psi_2(e_1) )
+  \end{split}
+\end{equation}
+
+\subsection{(b)}
+
+Since \(\bm{\Psi}_N(e_1,e_2,...,e_N)\) is defined as \(\frac{1}{\sqrt{N!}}\) times the determinant of a matrix, switching two coloums or rows will change the sign of \(\bm{\Psi}_N(e_1,e_2,...,e_N)\) as those operations changes the sign of a determinant.
+See Sentence 3.4.3, NVP - Lineær Algebra.
+This means that \(\bm{\Psi}_N(e_1,e_2,...,e_N)\) is asymmetric.
+
+\subsection{(c)}
+
+If \(\psi_i = \psi_j \) for \(i \neq j\) this means that two columns will be equal. As we saw in question 3.2(iii)(b), operations effecting a determinant of a matrix will affect the value of \(\bm{\Psi}_N(e_1,e_2,...,e_N)\) due to its definition.
+Two equal columns or rows will result in the determinant being 0, which means \(\bm{\Psi}_N(e_1,e_2,...,e_N)  = 0 \). This is because you can subtract either coloumn from the other resulting in a coloums of zeroes.
+Finding the determinant be expansion afterwards will allow you to multiply by all zeroes resulting in a determinant equal to zero.
+
+\end{document}
